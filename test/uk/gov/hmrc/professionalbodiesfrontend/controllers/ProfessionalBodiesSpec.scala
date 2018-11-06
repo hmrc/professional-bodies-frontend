@@ -26,7 +26,7 @@ import play.api.{Configuration, Environment}
 import uk.gov.hmrc.professionalbodiesfrontend.config.AppConfig
 
 
-class HelloWorldControllerSpec extends WordSpec with Matchers with GuiceOneAppPerSuite {
+class ProfessionalBodiesSpec extends WordSpec with Matchers with GuiceOneAppPerSuite {
   val fakeRequest = FakeRequest("GET", "/")
 
   val env = Environment.simple()
@@ -35,16 +35,16 @@ class HelloWorldControllerSpec extends WordSpec with Matchers with GuiceOneAppPe
   val messageApi = new DefaultMessagesApi(env, configuration, new DefaultLangs(configuration))
   val appConfig = new AppConfig(configuration, env)
 
-  val controller = new HelloWorld(messageApi, appConfig)
+  val controller = new ProfessionalBodies(messageApi, appConfig)
 
   "GET /" should {
     "return 200" in {
-      val result = controller.helloWorld(fakeRequest)
+      val result = controller.home(fakeRequest)
       status(result) shouldBe Status.OK
     }
 
     "return HTML" in {
-      val result = controller.helloWorld(fakeRequest)
+      val result = controller.home(fakeRequest)
       contentType(result) shouldBe Some("text/html")
       charset(result) shouldBe Some("utf-8")
     }
