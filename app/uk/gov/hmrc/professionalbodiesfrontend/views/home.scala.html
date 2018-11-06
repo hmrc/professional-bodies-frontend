@@ -17,7 +17,23 @@
 @import uk.gov.hmrc.professionalbodiesfrontend.config.AppConfig
 @()(implicit request: Request[_], messages: Messages, appConfig: AppConfig)
 
-@main_template(title = "Professional Bodies Approved for Tax Relief") {
-    <h1>Hello from Professional Bodies Approved for Tax Relief!</h1>
+@content_header = {
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <h1>Professional Bodies Approved for Tax Relief</h1>
+    </div>
+  </div>
+}
+
+@main_template(title = "Professional Bodies Approved for Tax Relief", contentHeader = Some(content_header)) {
+  <div class="grid-row">
+   <div class="column-two-thirds">
+    <p>Two thirds</p>
+   </div>
+   <div class="column-one-third">
+    <p>One third</p>
+   </div>
+
+  </div>
 }
 
