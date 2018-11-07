@@ -30,13 +30,11 @@
 
   <div class="grid-row">
 
-      <div class="column-one-third">
-          <h2>Contents</h2>
-          <a href="#a">A</a>
-      </div>
+
       <div class="column-two-thirds">
 
           <div class="form-group">
+              <label class="form-label" for="Search">Search</label>
               <input class="form-control" id="myInput" type="text" name="search-oraganisations-f1" placeholder="Search.." onkeyup="filter()">
           </div>
           <h2 id="a">A</h2>
@@ -64,8 +62,16 @@
           <li class= "organisation">Acquisition of Latin American Library Materials Seminar on the (SALALM)</li>
           <li class= "organisation">Actuarial Profession The (name for the Institute and Faculty of Actuaries)</li>
       </div>
-
+      <div class="column-one-third">
+          <h2>Contents</h2>
+          <a href="#a">A</a>
+      </div>
 
   </div>
+
+    <script src="@routes.Assets.versioned("js/jquery-3.3.1.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("js/custom.js")" type="text/javascript"></script>
+
+
 }
 
