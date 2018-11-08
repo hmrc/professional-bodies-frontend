@@ -25,18 +25,35 @@
   </div>
 }
 
-@main_template(title = "Approved professional organisations and learned societies for Tax Relief", contentHeader = Some(content_header)) {
+
+@script = {
+        <script src="@routes.Assets.versioned("js/custom.js")" type="text/javascript"></script>
+    }
+
+@main_template(title = "Approved professional organisations and learned societies for Tax Relief", contentHeader = Some(content_header), scriptElem = Some(script)) {
 
 
   <div class="grid-row">
 
 
       <div class="column-two-thirds">
+        <p> You can reclaim tax you pay on fees or subscriptions to some approved professional organisations - but only if you must have membership to do your job or it’s helpful for your work.</p>
+
+        <p>You cannot claim tax back on fees or subscriptions you’ve paid to professional organisations not approved by HMRC, or for:</p>
+
+            <li>life membership subscriptions</li>
+            <li>fees or subscriptions you have not paid for yourself, eg your employer has paid for them</li>
+            <li>Your organisation can tell you how much tax you’re allowed to claim back.</li>
+
+        <p>You may be able to reclaim tax on annual subscriptions for journals or other publications that appear in brackets after a ‘J’, following the organisation’s name.</p>
+
+        <p>To find if your organisation or society is on the approved list below please select the Ctrl and F keys on your keyboard. In the search box that appears type in the most relevant part of the name, so for example for Society of Actuaries you would type Actuaries and the number of listings including Actuaries should be displayed (1 of 21) and these are reachable by using the arrows.</p>
 
           <div class="form-group">
               <label class="form-label" for="Search">Search</label>
-              <input class="form-control" id="myInput" type="text" name="search-oraganisations-f1" placeholder="Search.." onkeyup="filter()">
+              <input class="form-control" id="myInput" type="text" name="search-organisations-f1" onkeyup="filter()">
           </div>
+
           <h2 id="a">A</h2>
           <li class= "organisation">AABC Register Ltd (Architects accredited in building conservation),from year 2016 to 2017</li>
           <li class= "organisation">Academic and Research Surgery Society of</li>
@@ -69,8 +86,7 @@
 
   </div>
 
-    <script src="@routes.Assets.versioned("js/jquery-3.3.1.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("js/custom.js")" type="text/javascript"></script>
+
 
 
 }
