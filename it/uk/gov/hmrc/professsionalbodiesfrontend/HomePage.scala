@@ -19,9 +19,8 @@ object HomePage extends WebPage with NavigationSugar {
     webDriver.findElement(By.id("search")).sendKeys(term)
   }
 
-  def assertCountOfMatchingOrganisations(count: Int) = {
-    eventually {
-      webDriver.findElements(By.cssSelector("[data-filtered='false']")).size() == count
-    }
+  def countOfMatchingOrganisations() = {
+    val elements = webDriver.findElements(By.xpath("//li[@data-filtered='false']"))
+    elements.size()
   }
 }
