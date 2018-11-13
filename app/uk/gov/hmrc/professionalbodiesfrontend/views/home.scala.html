@@ -17,6 +17,15 @@
 @import uk.gov.hmrc.professionalbodiesfrontend.config.AppConfig
 @(organisations: Seq[String])(implicit request: Request[_], messages: Messages, appConfig: AppConfig)
 
+@listFilter(a: String, b: Seq[String])= {
+    <ul class="list">
+    @b.filter(p => p.toLowerCase.startsWith(a.toLowerCase)).sorted.map{organisation =>
+        <li class= "organisation" data-filtered="false">@organisation</li>
+    }
+    </ul>
+}
+
+
 @content_header = {
   <div class="grid-row">
     <div class="column-two-thirds">
@@ -47,9 +56,15 @@
         </ul>
 
         <p>Your organisation can tell you how much tax you’re allowed to claim back.</p>
-        <p>You may be able to reclaim tax on annual subscriptions for journals or other publications that appear in brackets after a ‘J’, following the organisation’s name.</p>
 
-        <p>To find if your organisation or society is on the approved list below please select the Ctrl and F keys on your keyboard. In the search box that appears type in the most relevant part of the name, so for example for Society of Actuaries you would type Actuaries and the number of listings including Actuaries should be displayed (1 of 21) and these are reachable by using the arrows.</p>
+        <div class = "panel panel-border-wide"
+            <p>
+              You may be able to reclaim tax on annual subscriptions for journals or other publications that appear in brackets after a ‘J’, following the organisation’s name.
+            </p>
+        </div>
+
+
+        <p>In the search box below type in the most relevant part of the name, so for example for Society of Actuaries you would type Actuaries and the listings including Actuaries should be displayed.</p>
 
           <div class="form-group">
               <label class="form-label" for="Search">Search</label>
@@ -57,42 +72,83 @@
           </div>
 
           <h2 id="a">A</h2>
-          @for(organisation <- organisations) {
-            <li class= "organisation" data-filtered="false">@organisation</li>
-          }
-
+            @listFilter("a", organisations)
 
           <h2 id="b">B</h2>
-          <li class= "organisation" data-filtered="false">Back Pain Research Society for</li>
-          <li class= "organisation" data-filtered="false">Bacteriologists Society of American (J - Applied Microbiology)</li>
-          <li class= "organisation" data-filtered="false">Bakers Institute of British</li>
+            @listFilter("b", organisations)
+
           <h2 id="c">C</h2>
+            @listFilter("c", organisations)
+
           <h2 id="d">D</h2>
+            @listFilter("d", organisations)
+
           <h2 id="e">E</h2>
+            @listFilter("e", organisations)
+
           <h2 id="f">F</h2>
+            @listFilter("f", organisations)
+
           <h2 id="g">G</h2>
+            @listFilter("g", organisations)
+
           <h2 id="h">H</h2>
+            @listFilter("h", organisations)
+
           <h2 id="i">I</h2>
+            @listFilter("i", organisations)
+
           <h2 id="j">J</h2>
+            @listFilter("j", organisations)
+
           <h2 id="k">K</h2>
+            @listFilter("k", organisations)
+
           <h2 id="l">L</h2>
+          @listFilter("l", organisations)
+
           <h2 id="m">M</h2>
+            @listFilter("m", organisations)
+
           <h2 id="n">N</h2>
+            @listFilter("n", organisations)
+
           <h2 id="o">O</h2>
+            @listFilter("o", organisations)
+
           <h2 id="p">P</h2>
+            @listFilter("p", organisations)
+
           <h2 id="q">Q</h2>
+            @listFilter("q", organisations)
+
           <h2 id="r">R</h2>
-          <li class= "organisation" data-filtered="false">Radiation Biology European Society for</li>
+            @listFilter("r", organisations)
+
           <h2 id="s">S</h2>
+            @listFilter("s", organisations)
+
           <h2 id="t">T</h2>
+            @listFilter("t", organisations)
+
           <h2 id="u">U</h2>
+            @listFilter("u", organisations)
+
           <h2 id="v">V</h2>
+            @listFilter("v", organisations)
+
           <h2 id="w">W</h2>
+            @listFilter("w", organisations)
+
           <h2 id="x">X</h2>
+            @listFilter("x", organisations)
+
           <h2 id="y">Y</h2>
+            @listFilter("y", organisations)
+
           <h2 id="z">Z</h2>
-          <li class= "organisation" data-filtered="false">Zoological Society of London (J - Proceedings)</li>
-          <li class= "organisation" data-filtered="false">Zoological Society of Scotland Royal</li>
+            @listFilter("z", organisations)
+
       </div>
       <div class="column-one-third">
           <h2>Contents</h2>
