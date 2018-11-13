@@ -15,7 +15,7 @@
  *@
 
 @import uk.gov.hmrc.professionalbodiesfrontend.config.AppConfig
-@()(implicit request: Request[_], messages: Messages, appConfig: AppConfig)
+@(organisations: Seq[String])(implicit request: Request[_], messages: Messages, appConfig: AppConfig)
 
 @content_header = {
   <div class="grid-row">
@@ -57,29 +57,10 @@
           </div>
 
           <h2 id="a">A</h2>
-          <li class= "organisation" data-filtered="false">AABC Register Ltd (Architects accredited in building conservation),from year 2016 to 2017</li>
-          <li class= "organisation" data-filtered="false">Academic and Research Surgery Society of</li>
-          <li class= "organisation" data-filtered="false">Academic Gaming and Simulation in Education and Training Society for</li>
-          <li class= "organisation" data-filtered="false">Academic Primary Care Society for</li>
-          <li class= "organisation" data-filtered="false">Access Consultants National Register of</li>
-          <li class= "organisation" data-filtered="false">Accident and Emergency Medicine British Association for</li>
-          <li class= "organisation" data-filtered="false">Accountancy Association of Lecturers in</li>
-          <li class= "organisation" data-filtered="false">Accountants and Auditors British Association of</li>
-          <li class= "organisation" data-filtered="false">Accountants Association of International</li>
-          <li class= "organisation" data-filtered="false">Accountants Natal Society of</li>
-          <li class= "organisation" data-filtered="false">Accountants South African Institute of Professional (SAIPA)</li>
-          <li class= "organisation" data-filtered="false">Accountants Transvaal Society of</li>
-          <li class= "organisation" data-filtered="false">Accounting Association American</li>
-          <li class= "organisation" data-filtered="false">Accounting Association British (Standing Committee for British Accounting Association)</li>
-          <li class= "organisation" data-filtered="false">Accounting Association European</li>
-          <li class= "organisation" data-filtered="false">Accounting Conference of Professors of</li>
-          <li class= "organisation" data-filtered="false">Accounting Technicians Association of</li>
-          <li class= "organisation" data-filtered="false">Accounting Technicians in Ireland Institute of</li>
-          <li class= "organisation" data-filtered="false">Acoustical Society British</li>
-          <li class= "organisation" data-filtered="false">Acoustical Society of America</li>
-          <li class= "organisation" data-filtered="false">Acoustics Institute of</li>
-          <li class= "organisation" data-filtered="false">Acquisition of Latin American Library Materials Seminar on the (SALALM)</li>
-          <li class= "organisation" data-filtered="false">Actuarial Profession The (name for the Institute and Faculty of Actuaries)</li>
+          @for(organisation <- organisations) {
+            <li class= "organisation" data-filtered="false">@organisation</li>
+          }
+
 
           <h2 id="b">B</h2>
           <li class= "organisation" data-filtered="false">Back Pain Research Society for</li>

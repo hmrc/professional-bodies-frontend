@@ -30,7 +30,15 @@ import uk.gov.hmrc.professionalbodiesfrontend.views
 class ProfessionalBodies @Inject()(val messagesApi: MessagesApi, implicit val appConfig: AppConfig) extends FrontendController with I18nSupport {
 
   val home = Action.async { implicit request =>
-    Future.successful(Ok(views.html.home()))
+
+    val organisations = Seq(
+      "AABC Register Ltd (Architects accredited in building conservation),from year 2016 to 2017",
+      "Academic and Research Surgery Society of",
+      "Zoological Society of London (J - Proceedings)",
+      "Zoological Society of Scotland Royal"
+    )
+
+    Future.successful(Ok(views.html.home(organisations)))
   }
 
 }
