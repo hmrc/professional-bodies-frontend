@@ -21,7 +21,9 @@ class HomePageSpec extends BaseSpec {
       HomePage.enterSearchTerm("AABC")
 
       Then("the count of organisations shown is 1")
-      HomePage.countOfMatchingOrganisations() should be (1)
+      eventually {
+        HomePage.countOfMatchingOrganisations() should be (1)
+      }
     }
 
     scenario("Search for Am gives six matches") {
@@ -33,7 +35,9 @@ class HomePageSpec extends BaseSpec {
       HomePage.enterSearchTerm("Am")
 
       Then("the count of organisations shown is 6")
-      HomePage.countOfMatchingOrganisations() should be (6)
+      eventually {
+        HomePage.countOfMatchingOrganisations() should be (6)
+      }
     }
   }
 }
