@@ -17,9 +17,10 @@
 @import uk.gov.hmrc.professionalbodiesfrontend.config.AppConfig
 @(organisations: Seq[String])(implicit request: Request[_], messages: Messages, appConfig: AppConfig)
 
-@listFilter(a: String, b: Seq[String])= {
+@listFilter(startingChar: String, organisations: Seq[String])= {
+    <h2 id="@startingChar">@{startingChar.toUpperCase}</h2>
     <ul class="list">
-    @b.filter(p => p.toLowerCase.startsWith(a.toLowerCase)).sorted.map{organisation =>
+    @organisations.filter(organisation => organisation.toLowerCase.startsWith(startingChar.toLowerCase)).sorted.map { organisation =>
         <li class= "organisation" data-filtered="false">@organisation</li>
     }
     </ul>
@@ -71,82 +72,56 @@
               <input class="form-control" id="search" type="text" name="search-organisations-f1">
           </div>
 
-          <h2 id="a">A</h2>
             @listFilter("a", organisations)
 
-          <h2 id="b">B</h2>
             @listFilter("b", organisations)
 
-          <h2 id="c">C</h2>
             @listFilter("c", organisations)
 
-          <h2 id="d">D</h2>
             @listFilter("d", organisations)
 
-          <h2 id="e">E</h2>
             @listFilter("e", organisations)
 
-          <h2 id="f">F</h2>
             @listFilter("f", organisations)
 
-          <h2 id="g">G</h2>
             @listFilter("g", organisations)
 
-          <h2 id="h">H</h2>
             @listFilter("h", organisations)
 
-          <h2 id="i">I</h2>
             @listFilter("i", organisations)
 
-          <h2 id="j">J</h2>
             @listFilter("j", organisations)
 
-          <h2 id="k">K</h2>
             @listFilter("k", organisations)
 
-          <h2 id="l">L</h2>
-          @listFilter("l", organisations)
+            @listFilter("l", organisations)
 
-          <h2 id="m">M</h2>
             @listFilter("m", organisations)
 
-          <h2 id="n">N</h2>
             @listFilter("n", organisations)
 
-          <h2 id="o">O</h2>
             @listFilter("o", organisations)
 
-          <h2 id="p">P</h2>
             @listFilter("p", organisations)
 
-          <h2 id="q">Q</h2>
             @listFilter("q", organisations)
 
-          <h2 id="r">R</h2>
             @listFilter("r", organisations)
 
-          <h2 id="s">S</h2>
             @listFilter("s", organisations)
 
-          <h2 id="t">T</h2>
             @listFilter("t", organisations)
 
-          <h2 id="u">U</h2>
             @listFilter("u", organisations)
 
-          <h2 id="v">V</h2>
             @listFilter("v", organisations)
 
-          <h2 id="w">W</h2>
             @listFilter("w", organisations)
 
-          <h2 id="x">X</h2>
             @listFilter("x", organisations)
 
-          <h2 id="y">Y</h2>
             @listFilter("y", organisations)
 
-          <h2 id="z">Z</h2>
             @listFilter("z", organisations)
 
       </div>
