@@ -1,5 +1,8 @@
 package uk.gov.hmrc.professsionalbodiesfrontend
 
+import org.scalatest.concurrent.PatienceConfiguration.Timeout
+import org.scalatest.time.{Seconds, Span}
+
 class HomePageSpec extends BaseSpec {
 
   feature("Home page") {
@@ -21,7 +24,7 @@ class HomePageSpec extends BaseSpec {
       HomePage.enterSearchTerm("AABC")
 
       Then("the count of organisations shown is 1")
-      eventually {
+      eventually(Timeout(Span(5, Seconds))) {
         HomePage.countOfMatchingOrganisations() should be (1)
       }
     }
@@ -35,7 +38,7 @@ class HomePageSpec extends BaseSpec {
       HomePage.enterSearchTerm("Am")
 
       Then("the count of organisations shown is 6")
-      eventually {
+      eventually(Timeout(Span(5, Seconds))) {
         HomePage.countOfMatchingOrganisations() should be (6)
       }
     }
