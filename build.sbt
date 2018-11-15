@@ -13,6 +13,23 @@ lazy val microservice = Project(appName, file("."))
     majorVersion                     := 0,
     libraryDependencies              ++= AppDependencies.compile ++ AppDependencies.test
   )
+  .settings(
+    Concat.groups := Seq(
+      "javascripts/pbatr.js" -> group(
+        (baseDirectory.value / "app" / "assets" / "javascripts") ** "*.js"
+      )
+    ),
+    UglifyKeys.compressOptions := Seq(
+      "unused=false",
+      "dead_code=true"
+    ),
+    includeFilter in uglify := GlobFilter("pbatr*.js"),
+    pipelineStages := Seq(digest),
+    pipelineStages in Assets := Seq(
+      concat,
+      uglify
+    )
+  )
   .settings(publishingSettings: _*)
   .configs(IntegrationTest)
   .settings(integrationTestSettings(): _*)
