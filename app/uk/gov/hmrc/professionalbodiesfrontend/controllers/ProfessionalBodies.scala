@@ -17,55 +17,24 @@
 package uk.gov.hmrc.professionalbodiesfrontend.controllers
 
 import javax.inject.{Inject, Singleton}
-
 import play.api.mvc._
 
 import scala.concurrent.Future
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import uk.gov.hmrc.professionalbodiesfrontend.config.AppConfig
+import uk.gov.hmrc.professionalbodiesfrontend.connectors.ProfessionalBodiesConnector
 import uk.gov.hmrc.professionalbodiesfrontend.views
 
 @Singleton
-class ProfessionalBodies @Inject()(val messagesApi: MessagesApi, implicit val appConfig: AppConfig) extends FrontendController with I18nSupport {
+class ProfessionalBodies @Inject()(val messagesApi: MessagesApi, implicit val appConfig: AppConfig, professionalBodiesConnector: ProfessionalBodiesConnector) extends FrontendController with I18nSupport {
 
-  val home = Action.async { implicit request =>
-
-    val organisations = Seq(
-      "AABC Register Ltd (Architects accredited in building conservation),from year 2016 to 2017",
-        "Academic and Research Surgery Society of",
-        "Academic Gaming and Simulation in Education and Training Society for",
-    "Academic Primary Care Society for",
-    "Access Consultants National Register of",
-    "Accident and Emergency Medicine British Association for",
-    "Accountancy Association of Lecturers in",
-    "Accountants and Auditors British Association of",
-      "Accountants Association of International",
-      "Accountants Natal Society of",
-      "Accountants South African Institute of Professional (SAIPA)",
-    "Accountants Transvaal Society of",
-      "Accounting Association American",
-    "Accounting Association British (Standing Committee for British Accounting Association)",
-    "Accounting Association European",
-    "Accounting Conference of Professors of",
-    "Accounting Technicians Association of",
-      "Accounting Technicians in Ireland Institute of",
-      "Acoustical Society British",
-    "Acoustical Society of America",
-      "Acoustics Institute of",
-    "Acquisition of Latin American Library Materials Seminar on the (SALALM)",
-    "Actuarial Profession The (name for the Institute and Faculty of Actuaries)",
-    "Back Pain Research Society for",
-      "Bacteriologists Society of American (J - Applied Microbiology)",
-    "Bakers Institute of British",
-      "Radiation Biology European Society for",
-      "Zoological Society of London (J - Proceedings)",
-    "Zoological Society of Scotland Royal"
-    )
-
-    Future.successful(Ok(views.html.home(organisations)))
-
-
+  def fetchProfessionalBodies () = Action.async { implicit request =>
+    professionalBodiesConnector.getOrganisations().map{ organisations =>
+      Ok(views.html.home(organisations))
+    }
   }
+
+
 
 }

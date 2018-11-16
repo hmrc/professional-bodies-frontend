@@ -1,5 +1,6 @@
 # microservice specific routes
 
-GET        /                uk.gov.hmrc.professionalbodiesfrontend.controllers.ProfessionalBodies.home
+GET        /                uk.gov.hmrc.professionalbodiesfrontend.controllers.ProfessionalBodies.fetchProfessionalBodies
 
-GET         /assets/*file   controllers.Assets.versioned(path="/public", file: Asset)
+GET        /assets/*file    controllers.Assets.versioned(path="/public", file: Asset)
+
