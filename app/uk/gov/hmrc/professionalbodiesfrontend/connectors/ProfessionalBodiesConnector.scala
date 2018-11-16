@@ -26,7 +26,7 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class ProfessionalBodiesConnector @Inject()(appConfig: AppConfig, httpClient: HttpClient){
   def getOrganisations()(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Seq[String]] = {
-    httpClient.GET[Seq[String]](s"${appConfig.professionalBodies}${appConfig.organisations}")
+    httpClient.GET[Seq[String]](s"${appConfig.professionalBodies}/organisations")
 
   }
 }

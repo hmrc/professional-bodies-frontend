@@ -29,7 +29,7 @@ import uk.gov.hmrc.professionalbodiesfrontend.views
 @Singleton
 class ProfessionalBodies @Inject()(val messagesApi: MessagesApi, implicit val appConfig: AppConfig, professionalBodiesConnector: ProfessionalBodiesConnector) extends FrontendController with I18nSupport {
 
-  def fetchProfessionalBodies (): Action[Seq[String]] = Action.async(parse.json[Seq[String]]) { implicit request =>
+  def fetchProfessionalBodies () = Action.async { implicit request =>
     professionalBodiesConnector.getOrganisations().map{ organisations =>
       Ok(views.html.home(organisations))
     }
