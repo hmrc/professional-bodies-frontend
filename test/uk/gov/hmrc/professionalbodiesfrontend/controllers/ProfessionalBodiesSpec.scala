@@ -39,12 +39,12 @@ class ProfessionalBodiesSpec extends WordSpec with Matchers with GuiceOneAppPerS
 
   "GET /" should {
     "return 200" in {
-      val result = controller.home(fakeRequest)
+      val result = controller.fetchProfessionalBodies()(fakeRequest)
       status(result) shouldBe Status.OK
     }
 
     "return HTML" in {
-      val result = controller.home(fakeRequest)
+      val result = controller.fetchProfessionalBodies()(fakeRequest)
       contentType(result) shouldBe Some("text/html")
       charset(result) shouldBe Some("utf-8")
     }
