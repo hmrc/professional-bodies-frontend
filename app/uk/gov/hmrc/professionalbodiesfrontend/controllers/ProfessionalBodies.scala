@@ -17,6 +17,7 @@
 package uk.gov.hmrc.professionalbodiesfrontend.controllers
 
 import javax.inject.{Inject, Singleton}
+import play.api.Logger
 import play.api.mvc._
 
 import scala.concurrent.Future
@@ -62,6 +63,8 @@ class ProfessionalBodies @Inject()(val messagesApi: MessagesApi, implicit val ap
       "Zoological Society of London (J - Proceedings)",
       "Zoological Society of Scotland Royal"
     )
+    Logger.info(s"Assets URL is ${appConfig.assetsPrefix}")
+
     Future.successful(Ok(views.html.home(organisations)))
 
 //    professionalBodiesConnector.getOrganisations().map{ organisations =>
