@@ -1,4 +1,4 @@
-package uk.gov.hmrc.professsionalbodiesfrontend
+package uk.gov.hmrc.professionalbodiesfrontend
 
 import org.openqa.selenium.By
 

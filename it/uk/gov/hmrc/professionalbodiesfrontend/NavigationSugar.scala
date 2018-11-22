@@ -1,4 +1,4 @@
-package uk.gov.hmrc.professsionalbodiesfrontend
+package uk.gov.hmrc.professionalbodiesfrontend
 
 import org.openqa.selenium.{By, WebDriver}
 import org.scalatest.{Assertions, Matchers}
@@ -11,6 +11,7 @@ trait NavigationSugar extends WebBrowser with Eventually with Assertions with Ma
     go to page
     on(page)
   }
+
 
   def clickOnSubmit() (implicit webDriver: WebDriver) = {
     webDriver.findElement(By.id("submit")).click()
