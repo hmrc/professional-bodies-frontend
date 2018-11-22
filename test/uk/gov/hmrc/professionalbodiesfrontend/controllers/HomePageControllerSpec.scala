@@ -16,6 +16,9 @@
 
 package uk.gov.hmrc.professionalbodiesfrontend.controllers
 
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.when
+import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{Matchers, WordSpec}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.http.Status
@@ -24,9 +27,12 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.api.{Configuration, Environment}
 import uk.gov.hmrc.professionalbodiesfrontend.config.AppConfig
+import uk.gov.hmrc.professionalbodiesfrontend.connectors.ProfessionalBodiesConnector
+
+import scala.concurrent.Future
 
 
-class ProfessionalBodiesSpec extends WordSpec with Matchers with GuiceOneAppPerSuite {
+class HomePageControllerSpec extends WordSpec with Matchers with GuiceOneAppPerSuite with MockitoSugar{
   val fakeRequest = FakeRequest("GET", "/")
 
   val env = Environment.simple()
@@ -35,15 +41,32 @@ class ProfessionalBodiesSpec extends WordSpec with Matchers with GuiceOneAppPerS
   val messageApi = new DefaultMessagesApi(env, configuration, new DefaultLangs(configuration))
   val appConfig = new AppConfig(configuration, env)
 
-  val controller = new ProfessionalBodies(messageApi, appConfig)
+  val mockConnector = mock[ProfessionalBodiesConnector]
+
+  val controller = new HomePageController(mockConnector,messageApi, appConfig)
+
+  def theConnectorWillReturnSomeOrganisations () = {
+
+    val organisations = Seq("AABC Register Ltd (Architects accredited in building conservation),from year 2016 to 2017",
+      "Academic and Research Surgery Society of",
+      "Academic Gaming and Simulation in Education and Training Society for",
+      "Academic Primary Care Society for",
+      "Access Consultants National Register of")
+
+    when(mockConnector.getOrganisations()(any(),any())).thenReturn(Future.successful(organisations))
+
+  }
 
   "GET /" should {
     "return 200" in {
+      theConnectorWillReturnSomeOrganisations()
       val result = controller.fetchProfessionalBodies()(fakeRequest)
       status(result) shouldBe Status.OK
+
     }
 
     "return HTML" in {
+      theConnectorWillReturnSomeOrganisations()
       val result = controller.fetchProfessionalBodies()(fakeRequest)
       contentType(result) shouldBe Some("text/html")
       charset(result) shouldBe Some("utf-8")

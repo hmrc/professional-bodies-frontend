@@ -1,14 +1,18 @@
-package uk.gov.hmrc.professsionalbodiesfrontend
+package uk.gov.hmrc.professionalbodiesfrontend
 
-import org.scalatest.concurrent.PatienceConfiguration.Timeout
-import org.scalatest.time.{Seconds, Span}
+import uk.gov.hmrc.professionalbodiesfrontend.ProfessionalBodiesStub.givenSomeOrganisationsAreReturned
 
 class HomePageSpec extends BaseSpec {
+
+
 
   feature("Home page") {
 
     scenario("Page initially shows all organisations") {
-      Given("the user navigates to the page")
+      Given("the backend returns a list of organisations")
+      givenSomeOrganisationsAreReturned()
+
+      When("the user navigates to the page")
       HomePage.goToPage()
 
       Then("the count of organisations shown is 29")
@@ -16,7 +20,10 @@ class HomePageSpec extends BaseSpec {
     }
 
     scenario("Search for AABC gives a single match") {
-      Given("the user navigates to the page")
+      Given("the backend returns a list of organisations")
+      givenSomeOrganisationsAreReturned()
+
+      And("the user navigates to the page")
       HomePage.goToPage()
 
       When("the user enters AABC into the search box")
@@ -24,13 +31,14 @@ class HomePageSpec extends BaseSpec {
       HomePage.enterSearchTerm("AABC")
 
       Then("the count of organisations shown is 1")
-      eventually(Timeout(Span(5, Seconds))) {
-        HomePage.countOfMatchingOrganisations() should be (1)
-      }
+      HomePage.countOfMatchingOrganisations() should be (1)
     }
 
     scenario("Search for Am gives six matches") {
-      Given("the user navigates to the page")
+      Given("the backend returns a list of organisations")
+      givenSomeOrganisationsAreReturned()
+
+      And("the user navigates to the page")
       HomePage.goToPage()
 
       When("the user enters Am into the search box")
@@ -38,9 +46,8 @@ class HomePageSpec extends BaseSpec {
       HomePage.enterSearchTerm("Am")
 
       Then("the count of organisations shown is 6")
-      eventually(Timeout(Span(5, Seconds))) {
-        HomePage.countOfMatchingOrganisations() should be (6)
-      }
+      HomePage.countOfMatchingOrganisations() should be (6)
+
     }
   }
 }
