@@ -21,7 +21,6 @@
     <span class="orgGroups">
         <ul class="list">
             <h2 class="@startingChar">@{startingChar.toUpperCase}</h2>
-
         @organisations.filter(organisation => organisation.toLowerCase.startsWith(startingChar.toLowerCase)).sorted.map { organisation =>
             <li class= "organisation" data-filtered="false">@organisation</li>
         }

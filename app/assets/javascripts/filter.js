@@ -1,4 +1,13 @@
 $(document).ready(function(){
+  $(".orgGroups").each(function() {
+          if ($(this).find("[data-filtered='false']").length < 1){
+              $(this).hide();
+
+          } else {
+              $(this).show();
+
+          }
+      })
 
   $("#search").on("keyup", function() {
     var value = $(this).val().toLowerCase();
