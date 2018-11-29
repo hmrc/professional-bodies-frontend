@@ -4,8 +4,6 @@ import uk.gov.hmrc.professionalbodiesfrontend.ProfessionalBodiesStub.givenSomeOr
 
 class HomePageSpec extends BaseSpec {
 
-
-
   feature("Home page") {
 
     scenario("Page initially shows all organisations") {
