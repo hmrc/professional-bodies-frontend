@@ -18,12 +18,15 @@
 @(organisations: Seq[String])(implicit request: Request[_], messages: Messages, appConfig: AppConfig)
 
 @listFilter(startingChar: String, organisations: Seq[String])= {
-    <h2 id="@startingChar">@{startingChar.toUpperCase}</h2>
-    <ul class="list">
-    @organisations.filter(organisation => organisation.toLowerCase.startsWith(startingChar.toLowerCase)).sorted.map { organisation =>
-        <li class= "organisation" data-filtered="false">@organisation</li>
-    }
-    </ul>
+    <span class="orgGroups">
+        <ul class="list">
+            <h2 class="@startingChar">@{startingChar.toUpperCase}</h2>
+
+        @organisations.filter(organisation => organisation.toLowerCase.startsWith(startingChar.toLowerCase)).sorted.map { organisation =>
+            <li class= "organisation" data-filtered="false">@organisation</li>
+        }
+        </ul>
+    </span>
 }
 
 

@@ -23,6 +23,7 @@ object AppDependencies {
     "org.seleniumhq.selenium" %  "selenium-htmlunit-driver" % "2.52.0",
     "org.mockito"             %  "mockito-core"             % "2.23.4"                % "test, it",
     "com.github.tomakehurst"  %  "wiremock"                 % "1.58"                  % "test, it"
+
   )
 
 }

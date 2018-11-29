@@ -1,6 +1,5 @@
 package uk.gov.hmrc.professionalbodiesfrontend
 
-import com.google.inject.Guice
 import org.openqa.selenium.WebDriver
 import org.scalatest._
 import org.scalatestplus.play.OneServerPerSuite
