@@ -16,10 +16,11 @@
 
 package uk.gov.hmrc.professionalbodiesfrontend.controllers
 
+import com.gu.scalatest.JsoupShouldMatchers
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.mockito.MockitoSugar
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{MustMatchers, WordSpec}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.http.Status
 import play.api.i18n.{DefaultLangs, DefaultMessagesApi}
@@ -32,7 +33,7 @@ import uk.gov.hmrc.professionalbodiesfrontend.connectors.ProfessionalBodiesConne
 import scala.concurrent.Future
 
 
-class HomePageControllerSpec extends WordSpec with Matchers with GuiceOneAppPerSuite with MockitoSugar{
+class HomePageControllerSpec extends WordSpec with MustMatchers with GuiceOneAppPerSuite with MockitoSugar with JsoupShouldMatchers {
   val fakeRequest = FakeRequest("GET", "/")
 
   val env = Environment.simple()
@@ -61,15 +62,21 @@ class HomePageControllerSpec extends WordSpec with Matchers with GuiceOneAppPerS
     "return 200" in {
       theConnectorWillReturnSomeOrganisations()
       val result = controller.fetchProfessionalBodies()(fakeRequest)
-      status(result) shouldBe Status.OK
+      status(result) must be(Status.OK)
 
     }
 
     "return HTML" in {
       theConnectorWillReturnSomeOrganisations()
       val result = controller.fetchProfessionalBodies()(fakeRequest)
-      contentType(result) shouldBe Some("text/html")
-      charset(result) shouldBe Some("utf-8")
+      contentType(result) must be(Some("text/html"))
+      charset(result) must be(Some("utf-8"))
+    }
+
+    "markup letter heading with expected ID attribute" in {
+      theConnectorWillReturnSomeOrganisations()
+      val result = controller.fetchProfessionalBodies()(fakeRequest)
+      contentAsString(result).asBodyFragment should include element withName("h2").withAttrValue("id", "a")
     }
 
   }
