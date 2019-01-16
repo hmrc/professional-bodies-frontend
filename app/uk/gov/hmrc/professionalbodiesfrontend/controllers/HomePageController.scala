@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import uk.gov.hmrc.professionalbodiesfrontend.views
 class HomePageController @Inject()(professionalBodiesConnector: ProfessionalBodiesConnector, val messagesApi: MessagesApi, implicit val appConfig: AppConfig)
   extends FrontendController with I18nSupport {
 
-  def fetchProfessionalBodies () = Action.async { implicit request =>
+  def fetchProfessionalBodies (): Action[AnyContent] = Action.async { implicit request =>
 
     professionalBodiesConnector.getOrganisations().map{ organisations =>
       Ok(views.html.home(organisations))
