@@ -1,7 +1,7 @@
 
 # Professional Bodies Frontend
 
-This is a placeholder README.md for a new repository
+This service provides a listing of approved professional bodies that are eligible for tax relief.
 
 ### License
 
