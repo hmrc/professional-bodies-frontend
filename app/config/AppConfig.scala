@@ -16,24 +16,43 @@
 
 package config
 
-import javax.inject.{Inject, Singleton}
-import play.api.Mode.Mode
-import play.api.{Configuration, Environment}
-import uk.gov.hmrc.play.config.ServicesConfig
+import pureconfig.{CamelCase, ConfigFieldMapping, KebabCase, ProductHint}
 
-@Singleton
-class AppConfig @Inject()(val runModeConfiguration: Configuration, environment: Environment) extends ServicesConfig {
-  override protected def mode: Mode = environment.mode
+case class AppConfig(appName: String, contactFrontend: ContactFrontend, assets: Assets, googleAnalytics: GoogleAnalytics, microservice: Microservice) {
 
-  private def loadConfig(key: String) = runModeConfiguration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
+  lazy val assetsPrefix: String = assets.prefix
+  lazy val analyticsToken: String = googleAnalytics.token
+  lazy val analyticsHost: String = googleAnalytics.host
+  lazy val reportAProblemPartialUrl: String = contactFrontend.reportAProblemPartialUrl
+  lazy val reportAProblemNonJSUrl: String = contactFrontend.reportAProblemNonJSUrl
+  lazy val professionalBodies: String = microservice.services.professionalBodies.baseUri
 
-  private val contactHost = runModeConfiguration.getString(s"contact-frontend.host").getOrElse("")
-  private val contactFormServiceIdentifier = "MyService"
+}
 
-  lazy val assetsPrefix: String = loadConfig(s"assets.url") + loadConfig(s"assets.version")
-  lazy val analyticsToken: String = loadConfig(s"google-analytics.token")
-  lazy val analyticsHost: String = loadConfig(s"google-analytics.host")
-  lazy val reportAProblemPartialUrl: String = s"$contactHost/contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
-  lazy val reportAProblemNonJSUrl: String = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
-  lazy val professionalBodies: String = baseUrl("professional-bodies")
+object AppConfig {
+  implicit val appNameHint: ProductHint[AppConfig] = ProductHint(new ConfigFieldMapping {
+    def apply(fieldName: String): String = fieldName match {
+      case "appName" => fieldName
+      case _ => KebabCase.fromTokens(CamelCase.toTokens(fieldName))
+    }
+  })
+}
+
+case class ContactFrontend(host: String, serviceIdentifier: String = "MyService") {
+  lazy val reportAProblemPartialUrl = s"$host/contact/problem_reports_ajax?service=$serviceIdentifier"
+  lazy val reportAProblemNonJSUrl = s"$host/contact/problem_reports_nonjs?service=$serviceIdentifier"
+}
+
+case class Assets(version: String, url: String = "http://localhost:9032/assets/") {
+  lazy val prefix: String = s"$url$version"
+}
+
+case class GoogleAnalytics(token: String = "N/A", host: String = "auto")
+
+case class Microservice(services: Services)
+
+case class Services(professionalBodies: ProfessionalBodies)
+
+case class ProfessionalBodies(host: String, port: Int, protocol: String = "http") {
+  lazy val baseUri: String = s"$protocol://$host:$port"
 }
