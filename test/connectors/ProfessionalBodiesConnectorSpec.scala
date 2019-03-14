@@ -37,18 +37,8 @@ class ProfessionalBodiesConnectorSpec extends WordSpec with MustMatchers with Mo
     implicit def hc: HeaderCarrier = HeaderCarrier()
 
     val http = mock[HttpClient]
-    val cfg = AppConfig(
-      appName = "appName",
-      contactFrontend = ContactFrontend("localhost"),
-      assets = Assets("2.3.4"),
-      googleAnalytics = GoogleAnalytics(),
-      microservice = Microservice(
-        services = Services(
-          professionalBodies = ProfessionalBodies("localhost", 7401)
-        )
-      )
-    )
-    when(http.GET[Seq[String]](ArgumentMatchers.eq(cfg.professionalBodies + "/organisations"))
+    val cfg = ProfessionalBodies("localhost", 7401)
+    when(http.GET[Seq[String]](ArgumentMatchers.eq(cfg.baseUri + "/organisations"))
       (ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any())
     ).thenReturn(Future.successful(professionalBodies))
     val connector = new ProfessionalBodiesConnector(cfg, http)

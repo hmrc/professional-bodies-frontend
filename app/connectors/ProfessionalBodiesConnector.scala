@@ -16,7 +16,7 @@
 
 package connectors
 
-import config.AppConfig
+import config.ProfessionalBodies
 import javax.inject.{Inject, Singleton}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
@@ -24,9 +24,9 @@ import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class ProfessionalBodiesConnector @Inject()(appConfig: AppConfig, httpClient: HttpClient){
-  def getOrganisations()(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Seq[String]] = {
-    httpClient.GET[Seq[String]](s"${appConfig.professionalBodies}/organisations")
+class ProfessionalBodiesConnector @Inject()(professionalBodies: ProfessionalBodies, httpClient: HttpClient){
 
-  }
+  def getOrganisations()(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Seq[String]] =
+    httpClient.GET[Seq[String]](s"${professionalBodies.baseUri}/organisations")
+
 }

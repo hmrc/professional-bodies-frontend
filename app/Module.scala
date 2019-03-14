@@ -15,7 +15,7 @@
  */
 
 import com.google.inject.{AbstractModule, Provides}
-import config.AppConfig
+import config.{AppConfig, ProfessionalBodies}
 import javax.inject.Singleton
 
 class Module extends AbstractModule {
@@ -26,5 +26,8 @@ class Module extends AbstractModule {
 
   @Provides @Singleton
   def appConfig: AppConfig = cfg
+
+  @Provides @Singleton
+  def professionalBodiesApi: ProfessionalBodies = cfg.microservice.services.professionalBodies
 
 }
