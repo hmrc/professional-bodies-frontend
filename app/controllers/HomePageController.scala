@@ -14,17 +14,24 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.professionalbodiesfrontend.config
+package controllers
 
 import javax.inject.{Inject, Singleton}
-import play.api.i18n.MessagesApi
-import play.api.mvc.Request
-import play.twirl.api.Html
-import uk.gov.hmrc.play.bootstrap.http.FrontendErrorHandler
-import uk.gov.hmrc.professionalbodiesfrontend.views
+import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc._
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import config.AppConfig
+import connectors.ProfessionalBodiesConnector
 
 @Singleton
-class ErrorHandler @Inject()(val messagesApi: MessagesApi, implicit val appConfig: AppConfig) extends FrontendErrorHandler {
-  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit request: Request[_]): Html =
-    views.html.error_template(pageTitle, heading, message)
+class HomePageController @Inject()(professionalBodiesConnector: ProfessionalBodiesConnector, val messagesApi: MessagesApi, implicit val appConfig: AppConfig)
+  extends FrontendController with I18nSupport {
+
+  def fetchProfessionalBodies (): Action[AnyContent] = Action.async { implicit request =>
+
+    professionalBodiesConnector.getOrganisations().map{ organisations =>
+      Ok(views.html.home(organisations))
+    }
+  }
+
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.professionalbodiesfrontend.config.AppConfig
+@import config.AppConfig
 @(organisations: Seq[String])(implicit request: Request[_], messages: Messages, appConfig: AppConfig)
 
 @listFilter(startingChar: String, organisations: Seq[String])= {

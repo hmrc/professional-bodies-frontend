@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.professionalbodiesfrontend.controllers
+package controllers
 
 import uk.gov.hmrc.test.unigration.{ControllerUnigrationSpec, ProfessionalBodiesApiBehaviours}
 

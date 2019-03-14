@@ -14,19 +14,16 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.professionalbodiesfrontend.connectors
+package config
 
 import javax.inject.{Inject, Singleton}
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
-import uk.gov.hmrc.professionalbodiesfrontend.config.AppConfig
-
-import scala.concurrent.{ExecutionContext, Future}
+import play.api.i18n.MessagesApi
+import play.api.mvc.Request
+import play.twirl.api.Html
+import uk.gov.hmrc.play.bootstrap.http.FrontendErrorHandler
 
 @Singleton
-class ProfessionalBodiesConnector @Inject()(appConfig: AppConfig, httpClient: HttpClient){
-  def getOrganisations()(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Seq[String]] = {
-    httpClient.GET[Seq[String]](s"${appConfig.professionalBodies}/organisations")
-
-  }
+class ErrorHandler @Inject()(val messagesApi: MessagesApi, implicit val appConfig: AppConfig) extends FrontendErrorHandler {
+  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit request: Request[_]): Html =
+    views.html.error_template(pageTitle, heading, message)
 }

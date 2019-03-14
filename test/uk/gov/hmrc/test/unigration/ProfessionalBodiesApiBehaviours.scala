@@ -22,7 +22,7 @@ import org.scalatest.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.professionalbodiesfrontend.connectors.ProfessionalBodiesConnector
+import connectors.ProfessionalBodiesConnector
 
 import scala.concurrent.Future
 

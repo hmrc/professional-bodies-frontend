@@ -24,7 +24,7 @@ import play.api.Application
 import play.api.i18n.MessagesApi
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.concurrent.Execution.Implicits
-import uk.gov.hmrc.professionalbodiesfrontend.config.AppConfig
+import config.AppConfig
 
 import scala.concurrent.ExecutionContext
 import scala.reflect.ClassTag

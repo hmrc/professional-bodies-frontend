@@ -21,7 +21,7 @@ import play.api.mvc._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.professionalbodiesfrontend.config.ErrorHandler
+import config.ErrorHandler
 
 import scala.concurrent.Future
 
