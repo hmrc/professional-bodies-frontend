@@ -16,68 +16,29 @@
 
 package uk.gov.hmrc.professionalbodiesfrontend.controllers
 
-import com.gu.scalatest.JsoupShouldMatchers
-import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.when
-import org.scalatest.mockito.MockitoSugar
-import org.scalatest.{MustMatchers, WordSpec}
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.http.Status
-import play.api.i18n.{DefaultLangs, DefaultMessagesApi}
-import play.api.test.FakeRequest
-import play.api.test.Helpers._
-import play.api.{Configuration, Environment}
-import uk.gov.hmrc.professionalbodiesfrontend.config.AppConfig
-import uk.gov.hmrc.professionalbodiesfrontend.connectors.ProfessionalBodiesConnector
+import uk.gov.hmrc.test.unigration.{ControllerUnigrationSpec, ProfessionalBodiesApiBehaviours}
 
-import scala.concurrent.Future
-
-
-class HomePageControllerSpec extends WordSpec with MustMatchers with GuiceOneAppPerSuite with MockitoSugar with JsoupShouldMatchers {
-  val fakeRequest = FakeRequest("GET", "/")
-
-  val env = Environment.simple()
-  val configuration = Configuration.load(env)
-
-  val messageApi = new DefaultMessagesApi(env, configuration, new DefaultLangs(configuration))
-  val appConfig = new AppConfig(configuration, env)
-
-  val mockConnector = mock[ProfessionalBodiesConnector]
-
-  val controller = new HomePageController(mockConnector,messageApi, appConfig)
-
-  def theConnectorWillReturnSomeOrganisations () = {
-
-    val organisations = Seq("AABC Register Ltd (Architects accredited in building conservation),from year 2016 to 2017",
-      "Academic and Research Surgery Society of",
-      "Academic Gaming and Simulation in Education and Training Society for",
-      "Academic Primary Care Society for",
-      "Access Consultants National Register of")
-
-    when(mockConnector.getOrganisations()(any(),any())).thenReturn(Future.successful(organisations))
-
-  }
+class HomePageControllerSpec extends ControllerUnigrationSpec with ProfessionalBodiesApiBehaviours {
 
   "GET /" should {
-    "return 200" in {
-      theConnectorWillReturnSomeOrganisations()
-      val result = controller.fetchProfessionalBodies()(fakeRequest)
-      status(result) must be(Status.OK)
 
+    val method = "GET"
+    val uri = uriWithContextPath("/")
+
+    "return 200" in withProfessionalBodies() {
+      withRequest(method, uri) { wasOk }
     }
 
-    "return HTML" in {
-      theConnectorWillReturnSomeOrganisations()
-      val result = controller.fetchProfessionalBodies()(fakeRequest)
-      contentType(result) must be(Some("text/html"))
-      charset(result) must be(Some("utf-8"))
+    "return HTML" in withProfessionalBodies() {
+      withRequest(method, uri) { wasHtml }
     }
 
-    "markup letter heading with expected ID attribute" in {
-      theConnectorWillReturnSomeOrganisations()
-      val result = controller.fetchProfessionalBodies()(fakeRequest)
-      contentAsString(result).asBodyFragment should include element withName("h2").withAttrValue("id", "a")
+    "markup letter heading with expected ID attribute" in withProfessionalBodies() {
+      withRequest(method, uri) { res =>
+        includeHtmlTagWithAttribute(res, "h2", "id", "a")
+      }
     }
 
   }
+
 }
