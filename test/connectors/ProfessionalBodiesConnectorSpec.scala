@@ -17,6 +17,7 @@
 package connectors
 
 import config._
+import models.ProfessionalBody
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito.when
 import org.scalatest.concurrent.ScalaFutures
@@ -30,15 +31,19 @@ import scala.concurrent.Future
 
 class ProfessionalBodiesConnectorSpec extends WordSpec with MustMatchers with MockitoSugar with ScalaFutures {
 
-  val someProfessionalBodies = Seq("foo", "bar", "baz")
+  val someProfessionalBodies: Seq[ProfessionalBody] = Seq(
+    ProfessionalBody("foo"),
+    ProfessionalBody("bar"),
+    ProfessionalBody("baz")
+  )
 
-  class Scenario(professionalBodies: Seq[String] = Seq.empty) {
+  class Scenario(professionalBodies: Seq[ProfessionalBody] = Seq.empty) {
 
     implicit def hc: HeaderCarrier = HeaderCarrier()
 
     val http = mock[HttpClient]
     val cfg = ProfessionalBodies("localhost", 7401)
-    when(http.GET[Seq[String]](ArgumentMatchers.eq(cfg.baseUri + "/organisations"))
+    when(http.GET[Seq[ProfessionalBody]](ArgumentMatchers.eq(cfg.baseUri + "/organisations"))
       (ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any())
     ).thenReturn(Future.successful(professionalBodies))
     val connector = new ProfessionalBodiesConnector(cfg, http)

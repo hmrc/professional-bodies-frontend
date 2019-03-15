@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-package connectors
+package models
 
-import config.ProfessionalBodies
-import javax.inject.{Inject, Singleton}
-import models.ProfessionalBody
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import play.api.libs.json.{Json, OFormat}
 
-import scala.concurrent.{ExecutionContext, Future}
+case class ProfessionalBody(name: String) extends Ordered[ProfessionalBody] {
 
-@Singleton
-class ProfessionalBodiesConnector @Inject()(professionalBodies: ProfessionalBodies, httpClient: HttpClient){
+  override def compare(that: ProfessionalBody): Int = name compareTo that.name
 
-  def getOrganisations()(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Seq[ProfessionalBody]] =
-    httpClient.GET[Seq[ProfessionalBody]](s"${professionalBodies.baseUri}/organisations")
+}
+
+object ProfessionalBody {
+
+  implicit val professionalBodyFormat: OFormat[ProfessionalBody] = Json.format[ProfessionalBody]
 
 }

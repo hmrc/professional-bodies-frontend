@@ -15,13 +15,14 @@
  *@
 
 @import config.AppConfig
-@(organisations: Seq[String])(implicit request: Request[_], messages: Messages, appConfig: AppConfig)
 
-@listFilter(startingChar: String, organisations: Seq[String])= {
+@(organisations: Seq[ProfessionalBody])(implicit request: Request[_], messages: Messages, appConfig: AppConfig)
+
+@listFilter(startingChar: String, organisations: Seq[ProfessionalBody])= {
     <span class="orgGroups">
         <ul class="list">
             <h2 id="@startingChar">@{startingChar.toUpperCase}</h2>
-        @organisations.filter(organisation => organisation.toLowerCase.startsWith(startingChar.toLowerCase)).sorted.map { organisation =>
+        @organisations.filter(organisation => organisation.name.toLowerCase.startsWith(startingChar.toLowerCase)).sorted.map { organisation =>
             <li class= "organisation" data-filtered="false">@organisation</li>
         }
         </ul>

@@ -16,13 +16,14 @@
 
 package uk.gov.hmrc.test.unigration
 
-import org.mockito.Mockito.when
+import connectors.ProfessionalBodiesConnector
+import models.ProfessionalBody
 import org.mockito.ArgumentMatchers._
+import org.mockito.Mockito.when
 import org.scalatest.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import uk.gov.hmrc.http.HeaderCarrier
-import connectors.ProfessionalBodiesConnector
 
 import scala.concurrent.Future
 
@@ -30,18 +31,18 @@ trait ProfessionalBodiesApiBehaviours extends UnigrationSpec with MockitoSugar {
 
   private lazy val mockConnector: ProfessionalBodiesConnector = mock[ProfessionalBodiesConnector]
 
-  protected val defaultProfessionalBodies: Seq[String] = Seq(
-    "AABC Register Ltd (Architects accredited in building conservation),from year 2016 to 2017",
-    "Academic and Research Surgery Society of",
-    "Academic Gaming and Simulation in Education and Training Society for",
-    "Academic Primary Care Society for",
-    "Access Consultants National Register of"
+  protected val defaultProfessionalBodies: Seq[ProfessionalBody] = Seq(
+    ProfessionalBody("AABC Register Ltd (Architects accredited in building conservation),from year 2016 to 2017"),
+    ProfessionalBody("Academic and Research Surgery Society of"),
+    ProfessionalBody("Academic Gaming and Simulation in Education and Training Society for"),
+    ProfessionalBody("Academic Primary Care Society for"),
+    ProfessionalBody("Access Consultants National Register of")
   )
 
   override protected def customise(builder: GuiceApplicationBuilder): GuiceApplicationBuilder =
     super.customise(builder).overrides(bind[ProfessionalBodiesConnector].to(mockConnector))
 
-  def withProfessionalBodies(professionalBodies: Seq[String] = defaultProfessionalBodies)
+  def withProfessionalBodies(professionalBodies: Seq[ProfessionalBody] = defaultProfessionalBodies)
                             (test: => Unit)
                             (implicit hc: HeaderCarrier): Unit = {
     when(mockConnector.getOrganisations()(any(), any())).thenReturn(Future.successful(professionalBodies))
