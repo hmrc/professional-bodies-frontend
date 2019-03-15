@@ -18,7 +18,7 @@ package controllers
 
 import uk.gov.hmrc.test.unigration.{ControllerUnigrationSpec, ProfessionalBodiesApiBehaviours}
 
-class HomePageControllerSpec extends ControllerUnigrationSpec with ProfessionalBodiesApiBehaviours {
+class ProfessionalBodiesControllerSpec extends ControllerUnigrationSpec with ProfessionalBodiesApiBehaviours {
 
   "GET /" should {
 

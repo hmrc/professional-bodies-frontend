@@ -45,7 +45,7 @@ trait ProfessionalBodiesApiBehaviours extends UnigrationSpec with MockitoSugar {
   def withProfessionalBodies(professionalBodies: Seq[ProfessionalBody] = defaultProfessionalBodies)
                             (test: => Unit)
                             (implicit hc: HeaderCarrier): Unit = {
-    when(mockConnector.getOrganisations()(any(), any())).thenReturn(Future.successful(professionalBodies))
+    when(mockConnector.list()(any())).thenReturn(Future.successful(professionalBodies))
     test
   }
 

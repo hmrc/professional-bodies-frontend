@@ -24,13 +24,12 @@ import config.AppConfig
 import connectors.ProfessionalBodiesConnector
 
 @Singleton
-class HomePageController @Inject()(professionalBodiesConnector: ProfessionalBodiesConnector, val messagesApi: MessagesApi, implicit val appConfig: AppConfig)
+class ProfessionalBodiesController @Inject()(connector: ProfessionalBodiesConnector)(implicit val appConfig: AppConfig, val messagesApi: MessagesApi)
   extends FrontendController with I18nSupport {
 
-  def fetchProfessionalBodies (): Action[AnyContent] = Action.async { implicit request =>
-
-    professionalBodiesConnector.getOrganisations().map{ organisations =>
-      Ok(views.html.home(organisations))
+  def list: Action[AnyContent] = Action.async { implicit req =>
+    connector.list().map { professionalBodies =>
+      Ok(views.html.list(professionalBodies))
     }
   }
 

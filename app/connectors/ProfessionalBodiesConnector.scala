@@ -25,9 +25,9 @@ import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class ProfessionalBodiesConnector @Inject()(professionalBodies: ProfessionalBodies, httpClient: HttpClient){
+class ProfessionalBodiesConnector @Inject()(professionalBodies: ProfessionalBodies, httpClient: HttpClient)(implicit ec: ExecutionContext) {
 
-  def getOrganisations()(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Seq[ProfessionalBody]] =
+  def list()(implicit hc: HeaderCarrier): Future[Seq[ProfessionalBody]] =
     httpClient.GET[Seq[ProfessionalBody]](s"${professionalBodies.baseUri}/organisations")
 
 }

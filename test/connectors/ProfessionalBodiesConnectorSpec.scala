@@ -52,7 +52,7 @@ class ProfessionalBodiesConnectorSpec extends WordSpec with MustMatchers with Mo
   "the connector" should {
 
     "return organisations" in new Scenario(someProfessionalBodies) {
-      connector.getOrganisations().futureValue must be(someProfessionalBodies)
+      connector.list().futureValue must be(someProfessionalBodies)
     }
 
   }
