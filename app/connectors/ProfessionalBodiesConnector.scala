@@ -28,6 +28,6 @@ import scala.concurrent.{ExecutionContext, Future}
 class ProfessionalBodiesConnector @Inject()(professionalBodies: ProfessionalBodies, httpClient: HttpClient)(implicit ec: ExecutionContext) {
 
   def list()(implicit hc: HeaderCarrier): Future[Seq[ProfessionalBody]] =
-    httpClient.GET[Seq[ProfessionalBody]](s"${professionalBodies.baseUri}/organisations")
+    httpClient.GET[Seq[ProfessionalBody]](professionalBodies.listEndpointUrl)
 
 }
