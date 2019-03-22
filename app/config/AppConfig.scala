@@ -57,6 +57,6 @@ case class ProfessionalBodies(host: String, port: Int, protocol: String = "http"
 
   lazy val baseUri: String = s"$protocol://$host:$port"
 
-  lazy val listEndpointUrl = s"$baseUri/organisations"
+  lazy val listEndpointUrl = s"$baseUri/professionalBodies"
 
 }
