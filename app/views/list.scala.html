@@ -23,7 +23,7 @@
         <ul class="list">
             <h2 id="@startingChar">@{startingChar.toUpperCase}</h2>
         @organisations.filter(organisation => organisation.name.toLowerCase.startsWith(startingChar.toLowerCase)).sorted.map { organisation =>
-            <li class= "organisation" data-filtered="false">@organisation</li>
+            <li class= "organisation" data-filtered="false">@{organisation.name}</li>
         }
         </ul>
     </span>
