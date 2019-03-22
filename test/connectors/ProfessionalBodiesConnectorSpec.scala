@@ -43,7 +43,7 @@ class ProfessionalBodiesConnectorSpec extends WordSpec with MustMatchers with Mo
 
     val http = mock[HttpClient]
     val cfg = ProfessionalBodies("localhost", 7401)
-    when(http.GET[Seq[ProfessionalBody]](ArgumentMatchers.eq(cfg.baseUri + "/organisations"))
+    when(http.GET[Seq[ProfessionalBody]](ArgumentMatchers.eq(cfg.baseUri + "/professionalBodies"))
       (ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any())
     ).thenReturn(Future.successful(professionalBodies))
     val connector = new ProfessionalBodiesConnector(cfg, http)

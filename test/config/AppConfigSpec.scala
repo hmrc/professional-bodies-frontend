@@ -47,7 +47,7 @@ class AppConfigSpec extends UnigrationSpec {
     }
 
     "know about list endpoint in professional bodies API configuration" in {
-      appConfig.microservice.services.professionalBodies.listEndpointUrl must be(s"${appConfig.professionalBodies}/organisations")
+      appConfig.microservice.services.professionalBodies.listEndpointUrl must be(s"${appConfig.professionalBodies}/professionalBodies")
     }
 
   }
