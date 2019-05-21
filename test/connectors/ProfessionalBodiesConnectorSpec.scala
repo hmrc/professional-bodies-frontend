@@ -41,7 +41,7 @@ class ProfessionalBodiesConnectorSpec extends WordSpec with MustMatchers with Mo
 
     implicit def hc: HeaderCarrier = HeaderCarrier()
 
-    val http = mock[HttpClient]
+    val http: HttpClient = mock[HttpClient]
     val cfg = ProfessionalBodies("localhost", 7401)
     when(http.GET[Seq[ProfessionalBody]](ArgumentMatchers.eq(cfg.baseUri + "/professionalBodies"))
       (ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any())
@@ -50,11 +50,9 @@ class ProfessionalBodiesConnectorSpec extends WordSpec with MustMatchers with Mo
   }
 
   "the connector" should {
-
     "return organisations" in new Scenario(someProfessionalBodies) {
       connector.list().futureValue must be(someProfessionalBodies)
     }
-
   }
 
 }
