@@ -26,7 +26,7 @@ import connectors.ProfessionalBodiesConnector
 @Singleton
 class ProfessionalBodiesController @Inject()(connector: ProfessionalBodiesConnector)(implicit val appConfig: AppConfig, val messagesApi: MessagesApi)
   extends FrontendController with I18nSupport {
-
+  
   def list: Action[AnyContent] = Action.async { implicit req =>
     connector.list().map { professionalBodies =>
       Ok(views.html.list(professionalBodies))
