@@ -19,13 +19,9 @@ package models
 import play.api.libs.json.{Json, OFormat}
 
 case class ProfessionalBody(name: String) extends Ordered[ProfessionalBody] {
-
   override def compare(that: ProfessionalBody): Int = name compareTo that.name
-
 }
 
 object ProfessionalBody {
-
   implicit val professionalBodyFormat: OFormat[ProfessionalBody] = Json.format[ProfessionalBody]
-
 }

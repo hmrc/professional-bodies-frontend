@@ -32,5 +32,4 @@ class ProfessionalBodiesController @Inject()(connector: ProfessionalBodiesConnec
       Ok(views.html.list(professionalBodies))
     }
   }
-
 }

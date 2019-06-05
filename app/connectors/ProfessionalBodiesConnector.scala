@@ -29,5 +29,4 @@ class ProfessionalBodiesConnector @Inject()(professionalBodies: ProfessionalBodi
 
   def list()(implicit hc: HeaderCarrier): Future[Seq[ProfessionalBody]] =
     httpClient.GET[Seq[ProfessionalBody]](professionalBodies.listEndpointUrl)
-
 }
