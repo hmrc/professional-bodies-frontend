@@ -1,0 +1,19 @@
+{
+  "defaults": {
+    "chromeLaunchConfig": {
+      "args": ["--no-sandbox"]
+    },
+    "hideElements": "#footer, #global-header, #global-cookie-message, .phase-banner, a, button.button, .form-hint",
+    "standard": "WCAG2AAA",
+    "concurrency": 1
+  },
+
+  "urls": [
+    {
+      "url": "http://localhost:7400/professional-bodies",
+      "actions": [
+              "screen capture target/test-reports/html-report/a11y/screenshots/professional-bodies.png"
+       ]
+    }
+  ]
+}
